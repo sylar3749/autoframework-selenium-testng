@@ -17,14 +17,20 @@ public class Init {
 
 	public Log log = new Log(this.getClass());
 
+	public void doLogin(WebDriver dr, String url, String username, String password) {
+		dr.manage().window().maximize();
+		log.info("Open URL: " + url);
+		dr.get(url);
+		log.info("Sign in with username: " + username + " & password: " + password);
+	}
+
 	public WebDriver initAndLogin(String browser, String url, String username, String password) {
 		switch (browser) {
 		case "IE": {
-			// 指定iedriver的目录，在项目中，这样，在换个新电脑后，driver不需要复制，可直接使用
 			File driverpath = new File("driver/IEDriverServer.exe");
 			System.setProperty("webdriver.ie.driver", driverpath.getAbsolutePath());
 			WebDriver driver = new InternetExplorerDriver();
-//			driver.manage().window().maximize();
+			driver.manage().window().maximize();
 			log.info("Launch IE");
 			doLogin(driver, url, username, password);
 			return driver;
@@ -33,7 +39,7 @@ public class Init {
 			ProfilesIni pi = new ProfilesIni();
 			FirefoxProfile profile = pi.getProfile("default");
 			WebDriver driver = new FirefoxDriver(profile);
-//			driver.manage().window().maximize();
+			driver.manage().window().maximize();
 			log.info("Launch Firefox");
 			doLogin(driver, url, username, password);
 			return driver;
@@ -41,16 +47,16 @@ public class Init {
 		case "Chrome": {
 			File driverpath = new File("driver/chromedriver.exe");
 			System.setProperty("webdriver.chrome.driver", driverpath.getAbsolutePath());
-			//通过配置参数禁止data;的出现
 			ChromeOptions options = new ChromeOptions();
-//			options.addArguments("--user-data-dir=C:/Users/Administrator/AppData/Local/Google/Chrome/User Data/Default");
-//			options.addArguments("--start-maximized", "allow-running-insecure-content", "--test-type");
+			//通过配置参数禁止data;的出现
+			options.addArguments("--user-data-dir=G:/Users/Sylar/AppData/Local/Google/Chrome/User Data/Default");
+
 			options.setExperimentalOption("useAutomationExtension", false);
 			DesiredCapabilities capbility = DesiredCapabilities.chrome();
 			capbility.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 			capbility.setCapability(ChromeOptions.CAPABILITY, options);
 			WebDriver driver = new ChromeDriver(options);
-//			driver.manage().window().maximize();
+			driver.manage().window().maximize();
 			log.debug("Launch Chrome");
 			doLogin(driver, url, username, password);
 			return driver;
@@ -61,13 +67,6 @@ public class Init {
 			return null;
 		}
 		}
-	}
-
-	public void doLogin(WebDriver dr, String url, String username, String password) {
-		dr.manage().window().maximize();
-		log.info("Open URL: " + url);
-		dr.get(url);
-		log.info("Sign in with username: " + username + " & password: " + password);
 	}
 
 	public WebDriver init(String browser, String url) {
@@ -95,16 +94,16 @@ public class Init {
 		case "Chrome": {
 			File driverpath = new File("driver/chromedriver.exe");
 			System.setProperty("webdriver.chrome.driver", driverpath.getAbsolutePath());
-			//通过配置参数禁止data;的出现
 			ChromeOptions options = new ChromeOptions();
-//			options.addArguments("--user-data-dir=C:/Users/fjiri001/AppData/Local/Google/Chrome/User Data/Default");
-//			options.addArguments("--start-maximized", "allow-running-insecure-content", "--test-type");
-//			options.setExperimentalOption("useAutomationExtension", false);
+			//通过配置参数禁止data;的出现
+			options.addArguments("--user-data-dir=G:/Users/Sylar/AppData/Local/Google/Chrome/User Data/Default");
+
+			options.setExperimentalOption("useAutomationExtension", false);
 			DesiredCapabilities capbility = DesiredCapabilities.chrome();
 			capbility.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 			capbility.setCapability(ChromeOptions.CAPABILITY, options);
 			WebDriver driver = new ChromeDriver(options);
-//			driver.manage().window().maximize();
+			driver.manage().window().maximize();
 			log.info("Launch Chrome");
 			driver.get(url);
 			log.info("Open URL: " + url);

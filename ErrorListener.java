@@ -23,8 +23,6 @@ public class ErrorListener extends TestListenerAdapter {
 			WebDriver driver = tb.getDriver();
 			ScreenShot a = new ScreenShot(driver);
 			a.takeScreenshot(tr.getName());
-//			driver.close();
-//			driver.quit();
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
