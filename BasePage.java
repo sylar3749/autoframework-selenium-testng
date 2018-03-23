@@ -1,25 +1,20 @@
 package Framework;
 
-import java.awt.Robot;
+import org.ho.yaml.Yaml;
+import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
-
-import org.ho.yaml.Yaml;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
@@ -192,10 +187,7 @@ public class BasePage {
 				}
 			});
 		} catch (Exception e) {
-			// System.out.println("Locator [" + element.toString()
-			// + "] is also displayed");
 			log.error("element is still displayed");
-			// driver.quit();
 		}
 		return wait;
 	}
@@ -207,8 +199,7 @@ public class BasePage {
 				HashMap<String, String> m = ml.get(key);
 				String type = m.get("type");
 				String value = m.get("value");
-				log.info("Time:[" + new Date() + "] Looking for element:\"" + key + "\" Fuction:\"" + type + "\" Value:\"" + value + "\"");
-				// Reporter.log("Looking for element:\"" + key + "\" Fuction:\"" + type + "\" Value:\"" + value + "\"");
+				log.info("Looking for element:\"" + key + "\" Fuction:\"" + type + "\" Value:\"" + value + "\"");
 				if (replace != null)
 					value = this.getLocatorString(value, replace);
 				By by = this.getBy(type, value);
@@ -325,8 +316,8 @@ public class BasePage {
 	/**
 	 * 使用aotuit 脚本 实现上传附件操作。
 	 * 
-	 * @param values
-	 * @throws IOException
+	 * @param values String
+	 * @throws IOException e
 	 */
 	protected void ImportScript(String values) throws IOException {
 
@@ -337,7 +328,7 @@ public class BasePage {
 	/**
 	 * 多层嵌套frame里的元素定位时使用franmeElement 方法定位元素，没有id or name元素使用xpatn
 	 * 
-	 * @param element
+	 * @param element String
 	 */
 	protected void frameElement(String element) {
 		WebElement frame = getElement(element);
@@ -354,11 +345,10 @@ public class BasePage {
 	}
 
 	protected WebElement getTotleByXpath(String key) {
-		WebElement element = null;
+		WebElement element;
 		key = "//p[contains(.,'" + key + "')]";
 		element = getByXpath(key);
 		return element;
-
 	}
 
 	// Alt + 按键
@@ -392,7 +382,6 @@ public class BasePage {
 	/**
 	 * 通过xpath 的value直接调用，不介意使用 统一使用get
 	 */
-	@Deprecated
 	protected WebElement getByXpath(String key) {
 		WebElement element = null;
 		if (ml.containsKey(key)) {
@@ -420,4 +409,14 @@ public class BasePage {
 		}
 		return element;
 	}
+
+    /**
+     * If target cannot be found, log the error
+     *
+     * @param e Exception
+     */
+    public void logObjectNotFound(Exception e) {
+        log.error("找不到目标对象，报错信息如下：");
+        log.error(Arrays.toString(e.getStackTrace()));
+    }
 }
