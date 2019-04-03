@@ -1,0 +1,138 @@
+package autoframework;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.internal.ProfilesIni;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import java.io.File;
+
+import org.apache.commons.logging.Log;
+
+@SuppressWarnings("unused")
+public class Init {
+	public Log log;
+
+	/**
+	 * Open a new explorer which does not require credentials
+	 * 
+	 * @param browser Browser Type = IE, Chrome or Firefox
+	 * @param url
+	 * @return driver
+	 */
+	public WebDriver init(String browser, String url) {
+		switch (browser) {
+		case "IE": {
+			File driverpath = new File("driver/IEDriverServer.exe");
+			System.setProperty("webdriver.ie.driver", driverpath.getAbsolutePath());
+			WebDriver driver = new InternetExplorerDriver();
+			driver.manage().window().maximize();
+			log.info("Launch IE");
+			driver.get(url);
+			log.info("Open URL: " + url);
+			return driver;
+		}
+		case "Firefox": {
+			ProfilesIni pi = new ProfilesIni();
+			FirefoxProfile profile = pi.getProfile("default");
+			WebDriver driver = new FirefoxDriver(profile);
+			driver.manage().window().maximize();
+			log.info("Launch Firefox");
+			driver.get(url);
+			log.info("Open URL: " + url);
+			return driver;
+		}
+		case "Chrome": {
+			File driverpath = new File("driver/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", driverpath.getAbsolutePath());
+			ChromeOptions options = new ChromeOptions();
+			options.setExperimentalOption("useAutomationExtension", false);
+			DesiredCapabilities capability = DesiredCapabilities.chrome();
+			/* capability.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true); */
+			capability.setCapability(ChromeOptions.CAPABILITY, options);
+			WebDriver driver = new ChromeDriver(options);
+			driver.manage().window().maximize();
+			log.info("Launch Chrome");
+			driver.get(url);
+			log.info("Open URL: " + url);
+			return driver;
+		}
+		default: {
+			log.error("Explorer not supported, please use IE, Firefox or Chrome");
+			return null;
+		}
+		}
+	}
+
+	/**
+	 * Combine a url with related username and password
+	 * 
+	 * @param dr
+	 * @param protocol Protocol = http or https
+	 * @param url
+	 * @param username
+	 * @param password
+	 */
+	public void doLogin(WebDriver dr, String protocol, String url, String username, String password) {
+		String URL = protocol + "://" + username + ":" + password + "@" + url + "/";
+		log.info("Open URL: " + URL);
+		dr.get(URL);
+		log.info("Sign in with username: " + username + " & password: " + password);
+	}
+
+	/**
+	 * Open a new explorer which requires credentials
+	 * 
+	 * @param browser Browser Type = IE, Chrome or Firefox
+	 * @param protocol Protocol = http or https
+	 * @param url 
+	 * @param username
+	 * @param password
+	 * @return driver
+	 */
+	public WebDriver initAndLogin(String browser, String protocol, String url, String username, String password) {
+        switch (browser) {
+            case "IE": {
+                File driverpath = new File("driver/IEDriverServer.exe");
+                System.setProperty("webdriver.ie.driver", driverpath.getAbsolutePath());
+                WebDriver driver = new InternetExplorerDriver();
+                driver.manage().window().maximize();
+                log.info("Launch IE");
+                doLogin(driver, protocol, url, username, password);
+                return driver;
+            }
+            case "Firefox": {
+                ProfilesIni pi = new ProfilesIni();
+                FirefoxProfile profile = pi.getProfile("default");
+                WebDriver driver = new FirefoxDriver(profile);
+                driver.manage().window().maximize();
+                log.info("Launch Firefox");
+                doLogin(driver, protocol, url, username, password);
+                return driver;
+            }
+            case "Chrome": {
+                File driverpath = new File("driver/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", driverpath.getAbsolutePath());
+                ChromeOptions options = new ChromeOptions();
+                options.setExperimentalOption("useAutomationExtension", false);
+                DesiredCapabilities capbility = DesiredCapabilities.chrome();
+                /*capbility.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);*/
+                capbility.setCapability(ChromeOptions.CAPABILITY, options);
+                WebDriver driver = new ChromeDriver(options);
+                driver.manage().window().maximize();
+                log.debug("Launch Chrome");
+                doLogin(driver, protocol, url, username, password);
+                return driver;
+            }
+
+            default: {
+                log.error("Explorer not supported, please use IE, Firefox or Chrome");
+                return null;
+            }
+        }
+    }
+}
