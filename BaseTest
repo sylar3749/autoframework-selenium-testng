@@ -1,8 +1,8 @@
 package autoframework;
 
-import org.apache.commons.logging.Log;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.Assertion;
+import org.apache.log4j.Logger;
 
 public class BaseTest {
 
@@ -11,7 +11,7 @@ public class BaseTest {
 	protected static final String BOWER_IE = "IE";
 	protected static final String URL = "https://test.salesforce.com/";
 
-	public Log log;
+	public final Logger log = Logger.getLogger(BaseTest.class);
 
 	protected static WebDriver driver;
 
@@ -22,5 +22,4 @@ public class BaseTest {
 	public WebDriver getDriver() {
 		return driver;
 	}
-
 }
