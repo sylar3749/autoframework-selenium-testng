@@ -7,15 +7,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
+import org.apache.log4j.Logger;
 
-import org.apache.commons.logging.Log;
-
-@SuppressWarnings("unused")
 public class Init {
-	public Log log;
+	public final Logger log = Logger.getLogger(BaseTest.class);
 
 	/**
 	 * Open a new explorer which does not require credentials
