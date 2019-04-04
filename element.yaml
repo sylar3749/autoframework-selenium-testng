@@ -1,0 +1,3 @@
+login_UserName: { type: id, value: "username" }
+login_Password: { type: id, value: "password" }
+login_LogIn: { type: id, value: "Login" }
