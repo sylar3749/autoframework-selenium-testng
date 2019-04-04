@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Functional Testing" parallel="methods" thread-count="1" verbose="0">
+    <parameter name="report.config" value="resources/extentreport/config/extent-config.xml"/>
+    <test name="autoframework">
+        <parameter name="p1" value="test"/>
+        <classes>
+            <class name="com.autoframework.TestCase">
+                <methods>
+                    <include name="Test_WithDataDriven"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
