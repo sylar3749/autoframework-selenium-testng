@@ -43,7 +43,7 @@ public class BasePage {
 	}
 
 	/**
-	 * Find element with a key
+	 * Find element with keys
 	 *
 	 * @param key Key value maintained in the yaml file
 	 * @return WebElement
