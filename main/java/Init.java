@@ -1,5 +1,3 @@
-package autoframework;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -84,52 +82,52 @@ public class Init {
 	/**
 	 * Open a new explorer which requires credentials
 	 * 
-	 * @param browser Browser Type = IE, Chrome or Firefox
+	 * @param browser  Browser Type = IE, Chrome or Firefox
 	 * @param protocol Protocol = http or https
-	 * @param url 
+	 * @param url
 	 * @param username
 	 * @param password
 	 * @return driver
 	 */
 	public WebDriver initAndLogin(String browser, String protocol, String url, String username, String password) {
-        switch (browser) {
-            case "IE": {
-                File driverpath = new File("driver/IEDriverServer.exe");
-                System.setProperty("webdriver.ie.driver", driverpath.getAbsolutePath());
-                WebDriver driver = new InternetExplorerDriver();
-                driver.manage().window().maximize();
-                log.info("Launch IE");
-                doLogin(driver, protocol, url, username, password);
-                return driver;
-            }
-            case "Firefox": {
-                ProfilesIni pi = new ProfilesIni();
-                FirefoxProfile profile = pi.getProfile("default");
-                WebDriver driver = new FirefoxDriver(profile);
-                driver.manage().window().maximize();
-                log.info("Launch Firefox");
-                doLogin(driver, protocol, url, username, password);
-                return driver;
-            }
-            case "Chrome": {
-                File driverpath = new File("driver/chromedriver.exe");
-                System.setProperty("webdriver.chrome.driver", driverpath.getAbsolutePath());
-                ChromeOptions options = new ChromeOptions();
-                options.setExperimentalOption("useAutomationExtension", false);
-                DesiredCapabilities capbility = DesiredCapabilities.chrome();
-                /*capbility.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);*/
-                capbility.setCapability(ChromeOptions.CAPABILITY, options);
-                WebDriver driver = new ChromeDriver(options);
-                driver.manage().window().maximize();
-                log.debug("Launch Chrome");
-                doLogin(driver, protocol, url, username, password);
-                return driver;
-            }
+		switch (browser) {
+		case "IE": {
+			File driverpath = new File("driver/IEDriverServer.exe");
+			System.setProperty("webdriver.ie.driver", driverpath.getAbsolutePath());
+			WebDriver driver = new InternetExplorerDriver();
+			driver.manage().window().maximize();
+			log.info("Launch IE");
+			doLogin(driver, protocol, url, username, password);
+			return driver;
+		}
+		case "Firefox": {
+			ProfilesIni pi = new ProfilesIni();
+			FirefoxProfile profile = pi.getProfile("default");
+			WebDriver driver = new FirefoxDriver(profile);
+			driver.manage().window().maximize();
+			log.info("Launch Firefox");
+			doLogin(driver, protocol, url, username, password);
+			return driver;
+		}
+		case "Chrome": {
+			File driverpath = new File("driver/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", driverpath.getAbsolutePath());
+			ChromeOptions options = new ChromeOptions();
+			options.setExperimentalOption("useAutomationExtension", false);
+			DesiredCapabilities capbility = DesiredCapabilities.chrome();
+			/* capbility.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true); */
+			capbility.setCapability(ChromeOptions.CAPABILITY, options);
+			WebDriver driver = new ChromeDriver(options);
+			driver.manage().window().maximize();
+			log.debug("Launch Chrome");
+			doLogin(driver, protocol, url, username, password);
+			return driver;
+		}
 
-            default: {
-                log.error("Explorer not supported, please use IE, Firefox or Chrome");
-                return null;
-            }
-        }
-    }
+		default: {
+			log.error("Explorer not supported, please use IE, Firefox or Chrome");
+			return null;
+		}
+		}
+	}
 }

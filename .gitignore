@@ -1,1 +1,8 @@
 .allure
+.vscode
+.settings
+.classpath
+pom.xml
+target
+log
+driver

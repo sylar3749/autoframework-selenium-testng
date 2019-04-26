@@ -1,5 +1,3 @@
-package autoframework;
-
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.Assertion;
 import org.apache.log4j.Logger;

@@ -1,5 +1,3 @@
-package autoframework;
-
 import org.apache.log4j.Logger;
 import org.ho.yaml.Yaml;
 import org.openqa.selenium.*;
