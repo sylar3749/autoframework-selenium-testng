@@ -3,7 +3,7 @@ import org.testng.annotations.Test;
 import java.util.Map;
 import org.testng.annotations.AfterTest;
 
-public class TestCase extends BaseTest {
+public class TestCase_Sample extends BaseTest {
 
 	@BeforeTest
 	public void BeforeTest() {

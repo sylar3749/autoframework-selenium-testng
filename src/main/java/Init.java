@@ -26,9 +26,9 @@ public class Init {
 			System.setProperty("webdriver.ie.driver", driverpath.getAbsolutePath());
 			WebDriver driver = new InternetExplorerDriver();
 			driver.manage().window().maximize();
-			log.info("Launch IE");
+			log.info("\tLaunch IE");
 			driver.get(url);
-			log.info("Open URL: " + url);
+			log.info("\tOpen URL: " + url);
 			return driver;
 		}
 		case "Firefox": {
@@ -36,9 +36,9 @@ public class Init {
 			FirefoxProfile profile = pi.getProfile("default");
 			WebDriver driver = new FirefoxDriver(profile);
 			driver.manage().window().maximize();
-			log.info("Launch Firefox");
+			log.info("\tLaunch Firefox");
 			driver.get(url);
-			log.info("Open URL: " + url);
+			log.info("\tOpen URL: " + url);
 			return driver;
 		}
 		case "Chrome": {
@@ -51,13 +51,13 @@ public class Init {
 			capability.setCapability(ChromeOptions.CAPABILITY, options);
 			WebDriver driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
-			log.info("Launch Chrome");
+			log.info("\tLaunch Chrome");
 			driver.get(url);
-			log.info("Open URL: " + url);
+			log.info("\tOpen URL: " + url);
 			return driver;
 		}
 		default: {
-			log.error("Explorer not supported, please use IE, Firefox or Chrome");
+			log.error("\tExplorer not supported, please use IE, Firefox or Chrome");
 			return null;
 		}
 		}
@@ -74,9 +74,9 @@ public class Init {
 	 */
 	public void doLogin(WebDriver dr, String protocol, String url, String username, String password) {
 		String URL = protocol + "://" + username + ":" + password + "@" + url + "/";
-		log.info("Open URL: " + URL);
+		log.info("\tOpen URL: " + URL);
 		dr.get(URL);
-		log.info("Sign in with username: " + username + " & password: " + password);
+		log.info("\tSign in with username: " + username + " & password: " + password);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class Init {
 			System.setProperty("webdriver.ie.driver", driverpath.getAbsolutePath());
 			WebDriver driver = new InternetExplorerDriver();
 			driver.manage().window().maximize();
-			log.info("Launch IE");
+			log.info("\tLaunch IE");
 			doLogin(driver, protocol, url, username, password);
 			return driver;
 		}
@@ -105,7 +105,7 @@ public class Init {
 			FirefoxProfile profile = pi.getProfile("default");
 			WebDriver driver = new FirefoxDriver(profile);
 			driver.manage().window().maximize();
-			log.info("Launch Firefox");
+			log.info("\tLaunch Firefox");
 			doLogin(driver, protocol, url, username, password);
 			return driver;
 		}
@@ -119,13 +119,13 @@ public class Init {
 			capbility.setCapability(ChromeOptions.CAPABILITY, options);
 			WebDriver driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
-			log.debug("Launch Chrome");
+			log.info("\tLaunch Chrome");
 			doLogin(driver, protocol, url, username, password);
 			return driver;
 		}
 
 		default: {
-			log.error("Explorer not supported, please use IE, Firefox or Chrome");
+			log.error("\tExplorer not supported, please use IE, Firefox or Chrome");
 			return null;
 		}
 		}
