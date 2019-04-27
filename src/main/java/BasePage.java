@@ -242,13 +242,13 @@ public class BasePage {
 		WebElement e = getElement(element);
 		ae.assertNotNull(e, "Element not found...");
 		e.click();
-		log.info("\tClick on button");
+		log.info("\tClick on \"" + element + "\"");
 	}
 
 	protected void clear(String element) {
 		WebElement e = getElement(element);
 		ae.assertNotNull(e, "Element not found...");
-		log.info("\tClear the field...");
+		log.info("\tClear field \"" + element + "\"");
 		e.clear();
 	}
 
@@ -256,7 +256,7 @@ public class BasePage {
 		WebElement e = getElement(element);
 		ae.assertNotNull(e, "Element not found...");
 		e.clear();
-		log.info("\tInput \"" + values + "\"");
+		log.info("\tInput \"" + values + "\" into text field \"" + element + "\"");
 		e.sendKeys(values);
 	}
 
