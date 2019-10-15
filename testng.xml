@@ -3,7 +3,7 @@
     <test name="autoframework">
         <parameter name="p1" value="test"/>
         <classes>
-            <class name="autoframework.TestCase">
+            <class name="autoframework.src.test.TestCase_Sample">
                 <methods>
                     <include name="Test_WithDataDriven"/>
                 </methods>
